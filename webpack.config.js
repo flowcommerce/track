@@ -35,7 +35,7 @@ module.exports = {
   devtool: 'source-map',
   bail: true,
   entry: [
-    path.resolve(__dirname, './src/index.js'),
+    path.resolve(__dirname, './src/index.jsx'),
   ],
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -95,6 +95,12 @@ module.exports = {
       Version: ${pkg.version}
       Build Date: ${new Date().toString()}
       Copyright (C) ${new Date().getFullYear()} Flow Commerce Inc. All Rights Reserved.`),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production'),
+        'VERSION': JSON.stringify(pkg.version),
+      },
+    }),
     new webpack.IgnorePlugin(/node-fetch/),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.DedupePlugin(),
