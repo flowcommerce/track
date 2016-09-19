@@ -8,6 +8,7 @@ func main() {
 	executor := executor.Create("track")
   executor = executor.Add("git checkout master")
   executor = executor.Add("git pull origin master")
+  executor = executor.Add("dev tag micro")
   executor = executor.Add("npm install && npm prune")
   executor = executor.Add("npm run build")
   executor = executor.Add("sed -i '.bak' 's/APP_VERSION/'$(sem-info tag latest)'/g' dist/index.html")
