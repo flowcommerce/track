@@ -1,0 +1,59 @@
+{
+  "name": "track",
+  "version": "1.0.0",
+  "description": "UI for https://track.flow.io",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean && mkdir -p dist/js",
+    "build": "npm-run-all --sequential build:*",
+    "build:modernizr": "modernizr -u -c ./modernizr.json -d ./dist/js/modernizr.js",
+    "build:assets": "webpack",
+    "build:html": "cp ./index.html dist",
+    "dev": "webpack-dev-server --config webpack-dev.config.js",
+    "lint": "eslint --cache .",
+    "webpack": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flowcommerce/track.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flowcommerce/track/issues"
+  },
+  "homepage": "https://github.com/flowcommerce/track#readme",
+  "devDependencies": {
+    "@flowio/babel-preset-flowio": "1.0.2",
+    "@flowio/eslint-config-flowio": "3.0.0",
+    "@flowio/node-sdk": "0.1.54",
+    "babel-cli": "6.14.0",
+    "babel-eslint": "6.1.2",
+    "babel-loader": "6.2.5",
+    "css-loader": "0.25.0",
+    "cssnano": "3.7.5",
+    "eslint": "3.5.0",
+    "eslint-plugin-import": "1.15.0",
+    "eslint-plugin-jsx-a11y": "2.2.2",
+    "eslint-plugin-react": "6.2.2",
+    "extract-text-webpack-plugin": "1.0.1",
+    "imports-loader": "0.6.5",
+    "modernizr": "3.3.1",
+    "normalize.css": "4.2.0",
+    "postcss-cli": "2.6.0",
+    "postcss-cssnext": "2.8.0",
+    "postcss-custom-media": "5.0.1",
+    "postcss-import": "8.1.2",
+    "postcss-loader": "0.13.0",
+    "postcss-nested": "1.0.0",
+    "react": "15.3.2",
+    "react-hot-loader": "3.0.0-beta.4",
+    "style-loader": "0.13.1",
+    "webpack": "1.13.2",
+    "webpack-dev-server": "1.16.1",
+    "whatwg-fetch": "1.0.0"
+  }
+}
