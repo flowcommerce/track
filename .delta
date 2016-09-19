@@ -1,0 +1,3 @@
+stages:
+  enable:
+    - tag
