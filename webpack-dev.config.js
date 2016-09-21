@@ -18,7 +18,7 @@ module.exports = {
     // Doesn’t reload the browser upon syntax errors. This is recommended for React apps because
     // it keeps the state.
     'webpack/hot/only-dev-server',
-    path.resolve(__dirname, './src/index.js'),
+    path.resolve(__dirname, './src/index.jsx'),
   ],
   resolve: {
     fallback: path.resolve(__dirname, 'node_modules'),
@@ -38,7 +38,7 @@ module.exports = {
       test: /\.(js|jsx)$/,
       loader: 'react-hot-loader!babel-loader',
       include: [
-        path.resolve(__dirname, './app'),
+        path.resolve(__dirname, './src'),
       ],
     }, {
       test: /\.json$/,
