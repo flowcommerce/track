@@ -1,0 +1,57 @@
+@import "../../../css/media.css";
+
+.events {
+  color: #404040;
+
+  &__event-group {
+    border-top: 1px solid #e6e6e6;
+    display: flex;
+    flex-wrap: wrap;
+
+    &:first-child {
+      border: 0;
+      font-family: 'FreightSansProMedium-Regular', Helvetica, sans-serif;
+    }
+  }
+
+  &__day {
+    height: 16px;
+    flex: auto;
+    padding: .625rem;
+    width: 100%;
+  }
+
+  &__event {
+    display: flex;
+    flex: auto;
+    padding: .625rem;
+    width: 100%;
+  }
+
+  &__time {
+    margin-left: 1.25rem;
+    width: 21.875%;
+  }
+
+  &__details {
+    width: 78.125%;
+  }
+
+  &__status, &__message {
+    margin-bottom: 10px;
+  }
+
+  &__disclaimer {
+    color: #808080;
+    font-family: 'FreightSansProMedium-Regular', Helvetica, sans-serif;
+    height: 36px;
+    padding: .625rem 1.5rem;
+    text-align: center;
+  }
+}
+
+@media(--full-viewport) {
+  .events {
+
+  }
+}

@@ -1,0 +1,66 @@
+@import "../../../css/media.css";
+
+.summary {
+  align-items: center;
+  background-color: #f5f5f5;
+  display: flex;
+  height: 284px;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  &__status {
+    margin-bottom: 1.75rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  &__status-icon {
+    height: 140px;
+    width: 140px;
+  }
+
+  &__summary-text {
+    color: #404040;
+    font-family: 'FreightSansProMedium-Regular';
+  	font-weight: 500;
+    text-align: center;
+  }
+
+  &__date {
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  &__text {
+    display: block;
+    font-size: .875rem;
+  }
+}
+
+@media(--full-viewport) {
+  .summary {
+    display: flex;
+    height: 252px;
+    justify-content: center;
+
+    &__container {
+      max-width: 588px;
+      flex-wrap: nowrap;
+    }
+
+    &__status {
+      width: auto;
+      flex: 0 1;
+    }
+
+    &__summary-text {
+      flex: auto;
+      padding-top: 44px;
+    }
+  }
+}

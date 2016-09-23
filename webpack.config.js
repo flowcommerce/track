@@ -7,6 +7,7 @@ var postcssCustomMedia = require('postcss-custom-media');
 var postcssNested = require('postcss-nested');
 var postcssCSSNext = require('postcss-cssnext');
 var postcssNano = require('cssnano');
+var SvgStore = require('webpack-svgstore-plugin');
 
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var extract = ExtractTextPlugin.extract;
@@ -35,7 +36,9 @@ module.exports = {
   devtool: 'source-map',
   bail: true,
   entry: [
+    path.resolve(__dirname, './src/css.js'),
     path.resolve(__dirname, './src/index.jsx'),
+    path.resolve(__dirname, './src/svg.js'),
   ],
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -60,6 +63,7 @@ module.exports = {
       loader: extract('style-loader', 'css-loader?sourceMap&-minimize!postcss-loader'),
       include: [
         path.resolve(__dirname, './src'),
+        path.resolve(__dirname, './css'),
         path.resolve(__dirname, './node_modules/highlight.js/styles'),
       ],
     }, {
@@ -67,7 +71,7 @@ module.exports = {
       loader: 'file-loader?name=img/[hash].[ext]',
       exclude: [nodeModulesPath],
     }, {
-      test: /\.(eot|woff2|woff|ttf)$/,
+      test: /\.(eot|woff2|woff|ttf|otf)$/,
       loader: 'file-loader?name=fonts/[hash].[ext]',
       exclude: [nodeModulesPath],
     }, {
@@ -82,7 +86,7 @@ module.exports = {
       postcssCustomMedia,
       postcssNested,
       postcssCSSNext,
-      postcssNano({ zindex: false }),
+      postcssNano({ zindex: false, discardUnused: false }),
     ];
   },
   plugins: [
@@ -109,6 +113,14 @@ module.exports = {
       compressor: {
         warnings: false,
       },
+    }),
+    new SvgStore({
+      // svgo options
+      svgoOptions: {
+        plugins: [
+          { removeTitle: true }
+        ]
+      }
     }),
     new ExtractTextPlugin('css/build.css', {
       allChunks: true,

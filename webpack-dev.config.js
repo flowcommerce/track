@@ -7,6 +7,7 @@ var postcssCustomMedia = require('postcss-custom-media');
 var postcssNested = require('postcss-nested');
 var postcssCSSNext = require('postcss-cssnext');
 var postcssNano = require('cssnano');
+var SvgStore = require('webpack-svgstore-plugin');
 
 module.exports = {
   // faster rebuild times https://webpack.github.io/docs/configuration.html#devtool
@@ -18,7 +19,9 @@ module.exports = {
     // Doesn’t reload the browser upon syntax errors. This is recommended for React apps because
     // it keeps the state.
     'webpack/hot/only-dev-server',
+    path.resolve(__dirname, './src/css.js'),
     path.resolve(__dirname, './src/index.jsx'),
+    path.resolve(__dirname, './src/svg.js'),
   ],
   resolve: {
     fallback: path.resolve(__dirname, 'node_modules'),
@@ -48,6 +51,7 @@ module.exports = {
       loader: 'style-loader!css-loader?sourceMap&-minimize!postcss-loader',
       include: [
         path.resolve(__dirname, './src'),
+        path.resolve(__dirname, './css'),
         path.resolve(__dirname, './node_modules/highlight.js/styles'),
       ],
     }, {
@@ -55,7 +59,7 @@ module.exports = {
       loader: 'file-loader?name=img/[hash].[ext]',
       exclude: [nodeModulesPath],
     }, {
-      test: /\.(eot|woff2|woff|ttf)$/,
+      test: /\.(eot|woff2|woff|ttf|otf)$/,
       loader: 'file-loader?name=fonts/[hash].[ext]',
       exclude: [nodeModulesPath],
     }, {
@@ -81,6 +85,15 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     // Allows error warnings but does not stop compiling. Will remove when eslint is added
     new webpack.NoErrorsPlugin(),
+
+    new SvgStore({
+      // svgo options
+      svgoOptions: {
+        plugins: [
+          { removeTitle: true }
+        ]
+      }
+    }),
   ],
   devServer: {
     // Enables HMR in webpack-dev-server and libraries running in the browser
