@@ -28,7 +28,8 @@
     color: #404040;
     font-family: 'FreightSansProMedium-Regular';
   	font-weight: 500;
-    text-align: center;
+    margin-left: 3rem;
+    text-align: left;
   }
 
   &__date {
@@ -39,6 +40,11 @@
   &__text {
     display: block;
     font-size: .875rem;
+  }
+
+  &__generic-text {
+    color: #808080;
+    font-size: 1.75rem;
   }
 }
 

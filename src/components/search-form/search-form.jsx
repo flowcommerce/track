@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import BemHelper from '../../utilities/bem-helper';
 
 if (process.browser) {
@@ -7,9 +7,19 @@ if (process.browser) {
 
 const bem = new BemHelper('search-form');
 
-export default function SearchForm() {
+const propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+function SearchForm({ onSubmit }) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    const className = bem.element('text-input');
+    const value = e.target.querySelector(`.${className}`).value;
+    onSubmit(value);
+  }
   return (
-    <form className={bem.block()} name="tracking_search">
+    <form className={bem.block()} onSubmit={handleSubmit} name="tracking_search">
       <input
         className={bem.element('text-input')}
         type="text"
@@ -26,3 +36,8 @@ export default function SearchForm() {
     </form>
   );
 }
+
+SearchForm.displayName = 'SearchForm';
+SearchForm.propTypes = propTypes;
+
+export default SearchForm;

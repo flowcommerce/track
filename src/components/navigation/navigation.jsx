@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import BemHelper from '../../utilities/bem-helper';
 import SearchForm from '../search-form';
 
@@ -8,7 +8,11 @@ if (process.browser) {
 
 const bem = new BemHelper('navigation');
 
-export default function Navigation() {
+const propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
+
+function Navigation({ onSearch }) {
   return (
     <section className={bem.block()}>
       <div className={bem.element('branding-title')}>
@@ -18,8 +22,13 @@ export default function Navigation() {
         <span className={bem.element('title')}>Tracking</span>
       </div>
       <div className={bem.element('search')}>
-        <SearchForm />
+        <SearchForm onSubmit={onSearch} />
       </div>
     </section>
   );
 }
+
+Navigation.displayName = 'Navigation';
+Navigation.propTypes = propTypes;
+
+export default Navigation;

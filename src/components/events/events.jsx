@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import formatAddress from '../../utilities/address-format';
+import api from '../../api';
 import BemHelper from '../../utilities/bem-helper';
+import DateFormat from '../../utilities/date-format';
 
 if (process.browser) {
   require('./styles.css'); // eslint-disable-line global-require
@@ -7,65 +10,55 @@ if (process.browser) {
 
 const bem = new BemHelper('events');
 
-export default function Events() {
+const propTypes = {
+  eventGroups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
+    address: PropTypes.shape({
+      city: PropTypes.string,
+      country: PropTypes.string,
+      provence: PropTypes.string,
+      text: PropTypes.string,
+    }).isRequired,
+    description: PropTypes.string.isRequired,
+    status: PropTypes.oneOf[api.enums.trackingStatus],
+    timestamp: PropTypes.string.isRequired,
+  }))).isRequired,
+};
+
+function Events({ eventGroups }) {
   return (
     <section className={bem.block()}>
-      <section className={bem.element('event-group')}>
-        <div className={bem.element('day')}>
-          Monday, Sep 12
-        </div>
-        <section className={bem.element('event')}>
-          <div className={bem.element('time')}>11:36 AM</div>
-          <section className={bem.element('details')}>
-            <div className={bem.element('status')}>Delivered</div>
-            <div className={bem.element('message')}>Your package was left in the mailbox. </div>
-            <div className={bem.element('location')}>Hoboken, NJ, US</div>
-          </section>
-        </section>
-      </section>
-      <section className={bem.element('event-group')}>
-        <div className={bem.element('day')}>
-          Sunday, Sep 11
-        </div>
-        <section className={bem.element('event')}>
-          <div className={bem.element('time')}>6:17 AM</div>
-          <section className={bem.element('details')}>
-            <div className={bem.element('status')}>Attempt Failed</div>
-            <div className={bem.element('message')}>Delivery attempted - Business closed</div>
-            <div className={bem.element('location')}>Hoboken, NJ, US</div>
-          </section>
-        </section>
-        <section className={bem.element('event')}>
-          <div className={bem.element('time')}>6:07 AM</div>
-          <section className={bem.element('details')}>
-            <div className={bem.element('status')}>Out for Delivery</div>
-            <div className={bem.element('message')}>Out for delivery </div>
-            <div className={bem.element('location')}>Hoboken, NJ, US</div>
-          </section>
-        </section>
-        <section className={bem.element('event')}>
-          <div className={bem.element('time')}>1:50 AM</div>
-          <section className={bem.element('details')}>
-            <div className={bem.element('status')}>Delivered</div>
-            <div className={bem.element('message')}>Package arrived at a carrier facility </div>
-            <div className={bem.element('location')}>Hoboken, NJ, US</div>
-          </section>
-        </section>
-        <section className={bem.element('event')}>
-          <div className={bem.element('time')}>1:41 AM</div>
-          <section className={bem.element('details')}>
-            <div className={bem.element('status')}>Delivered</div>
-            <div className={bem.element('message')}>
-              Package has been transferred to the USPS and will be
-              delivered by your local postal office
+      {eventGroups.map((events, groupIndex) => {
+        const dayFormat = new DateFormat(events[0].timestamp);
+        return (
+          <section className={bem.element('event-group')} key={groupIndex}>
+            <div className={bem.element('day')}>
+              {dayFormat.getDate()}
             </div>
-            <div className={bem.element('location')}>Hoboken, NJ, US</div>
+            <div className={bem.element('events')}>
+              {events.map((event, eventIndex) => {
+                const timeFormat = new DateFormat(event.timestamp);
+                return (
+                  <section className={bem.element('event')} key={eventIndex}>
+                    <div className={bem.element('time')}>{timeFormat.getTime()}</div>
+                    <section className={bem.element('details')}>
+                      <div className={bem.element('status')}>{event.status}</div>
+                      <div className={bem.element('message')}>{event.description}</div>
+                      <div className={bem.element('location')}>{formatAddress(event.address)}</div>
+                    </section>
+                  </section>
+                );
+              })}
+            </div>
           </section>
-        </section>
-      </section>
+        );
+      })}
       <section className={bem.element('disclaimer')}>
         *Date & time are usually in the local time of the checkpoint location.
       </section>
     </section>
   );
 }
+
+Events.propTypes = propTypes;
+
+export default Events;
