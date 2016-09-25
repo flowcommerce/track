@@ -1,8 +1,8 @@
 /*
   Tracking Base CSS
  */
+@import url(//flowcdn.io/util/fonts/track.css);
 @import "normalize.css";
-@import "./fonts.css";
 @import "./media.css";
 
 body {
