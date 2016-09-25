@@ -24,11 +24,12 @@
     border-radius: 4px;
     height: 32px;
     margin-left: .75rem;
+    padding: 0;
     vertical-align: middle;
     width: 60px;
   }
 
-  &__search-blue-svg {
+  &__button-icon {
     width: 18px;
     height: 18px;
   }

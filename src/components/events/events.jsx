@@ -15,7 +15,7 @@ const propTypes = {
     address: PropTypes.shape({
       city: PropTypes.string,
       country: PropTypes.string,
-      provence: PropTypes.string,
+      province: PropTypes.string,
       text: PropTypes.string,
     }).isRequired,
     description: PropTypes.string.isRequired,

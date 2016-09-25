@@ -32,7 +32,7 @@ export default class App extends Component {
     }
 
     // https://track.flow.io/F701318902181840
-    if (pathParts.length === 2 && pathParts[1].toLowerCase().startsWith('fl')) {
+    if (pathParts.length === 2 && pathParts[1].toLowerCase().startsWith('f70')) {
       return pathParts[1];
     }
 
@@ -67,14 +67,14 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="tracking-app-container">
+      <main className="tracking-app-container">
         <Navigation onSearch={this.handleSearch} />
         <Summary
           event={this.getLastEvent()}
           noResults={this.state.loaded && this.state.eventGroups.length === 0} />
         <Events eventGroups={this.state.eventGroups} />
         <Footer />
-      </div>
+      </main>
     );
   }
 }

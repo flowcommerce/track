@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import BemHelper from '../../utilities/bem-helper';
 import DateFormat from '../../utilities/date-format';
+import Icon from '../icon';
 
 if (process.browser) {
   require('./styles.css'); // eslint-disable-line global-require
@@ -13,7 +14,7 @@ const propTypes = {
     address: PropTypes.shape({
       city: PropTypes.string,
       country: PropTypes.string,
-      provence: PropTypes.string,
+      province: PropTypes.string,
       text: PropTypes.string,
     }),
   }),
@@ -25,23 +26,23 @@ const defaultProps = {
 };
 
 const ICONS = {
-  pending: 'icon-tracking-icon-confirmed',
-  info_received: 'icon-tracking-icon-confirmed',
-  in_transit: 'icon-tracking-icon-in-transit',
-  out_for_delivery: 'icon-tracking-icon-in-transit',
-  attempt_fail: 'icon-tracking-icon-in-transit-error',
-  delivered: 'icon-tracking-icon-delivered',
-  exception: 'icon-tracking-icon-error',
-  expired: 'icon-tracking-icon-unknown',
-  no_results: 'icon-tracking-icon-error',
+  pending: 'icon-confirmed',
+  info_received: 'icon-confirmed',
+  in_transit: 'icon-in-transit',
+  out_for_delivery: 'icon-in-transit',
+  attempt_fail: 'icon-in-transit-error',
+  delivered: 'icon-delivered',
+  exception: 'icon-error',
+  expired: 'icon-unknown',
+  no_results: 'icon-error',
 };
 
 const getIcon = (event) => {
   if (!event) {
-    return undefined;
+    return 'icon-unknown';
   }
 
-  return ICONS[event.status] || 'icon-tracking-icon-unknown';
+  return ICONS[event.status] || 'icon-unknown';
 };
 
 const STATUS_TEXT = {
@@ -69,9 +70,9 @@ function Summary({ event, noResults }) {
     <section className={bem.block()}>
       <div className={bem.element('container')}>
         <div className={bem.element('status')}>
-          <svg className={bem.element('status-icon')}>
-            <use xlinkHref={`#${noResults ? getIcon({ status: 'no_results' }) : getIcon(event)}`} />
-          </svg>
+          <Icon
+            className={bem.element('status-icon')}
+            name={noResults ? getIcon({ status: 'no_results' }) : getIcon(event)} />
         </div>
 
         <div className={bem.element('summary-text')}>

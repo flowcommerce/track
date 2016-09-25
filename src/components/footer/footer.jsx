@@ -9,8 +9,8 @@ const bem = new BemHelper('footer');
 
 export default function Footer() {
   return (
-    <section className={bem.block()}>
-      <a className={bem.element('link')} href="https://www.flow.io">©2016 Flow Commerce Inc.</a>
-    </section>
+    <footer className={bem.block()}>
+      <a className={bem.element('link')} href="https://www.flow.io">©{new Date().getFullYear()} Flow Commerce Inc.</a>
+    </footer>
   );
 }

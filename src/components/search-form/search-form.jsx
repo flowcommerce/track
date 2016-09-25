@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import BemHelper from '../../utilities/bem-helper';
+import Icon from '../icon';
 
 if (process.browser) {
   require('./styles.css'); // eslint-disable-line global-require
@@ -7,37 +8,37 @@ if (process.browser) {
 
 const bem = new BemHelper('search-form');
 
-const propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+class SearchForm extends PureComponent {
+  static displayName = 'SearchForm';
 
-function SearchForm({ onSubmit }) {
-  function handleSubmit(e) {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
+  handleSubmit = (e) => {
     e.preventDefault();
-    const className = bem.element('text-input');
-    const value = e.target.querySelector(`.${className}`).value;
-    onSubmit(value);
+    const value = this.inputTracking.value;
+    this.props.onSubmit(value);
   }
-  return (
-    <form className={bem.block()} onSubmit={handleSubmit} name="tracking_search">
-      <input
-        className={bem.element('text-input')}
-        type="text"
-        name="tracking_q"
-        aria-required="true" />
-      <button
-        className={bem.element('button')}
-        type="submit"
-        name="submit_search">
-        <svg className={bem.element('search-blue-svg')}>
-          <use xlinkHref="#icon-tracking-icon-search-blue" />
-        </svg>
-      </button>
-    </form>
-  );
-}
 
-SearchForm.displayName = 'SearchForm';
-SearchForm.propTypes = propTypes;
+  render() {
+    return (
+      <form className={bem.block()} onSubmit={this.handleSubmit} name="tracking_search">
+        <input
+          ref={(input) => { this.inputTracking = input; }}
+          className={bem.element('text-input')}
+          type="text"
+          name="tracking_q"
+          aria-required="true" />
+        <button
+          className={bem.element('button')}
+          type="submit"
+          name="submit_search">
+          <Icon className={bem.element('button-icon')} name="icon-search-blue" />
+        </button>
+      </form>
+    );
+  }
+}
 
 export default SearchForm;
