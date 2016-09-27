@@ -1,0 +1,57 @@
+@import "../../../css/media.css";
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__branding-title {
+    align-items: center;
+    display: flex;
+    flex: auto;
+    height: 56px;
+  }
+
+  &__logo-svg {
+    height: 32px;
+    margin-left: .75rem;
+    width: 121px;
+  }
+
+  &__title {
+    color: #0051b2;
+    display: inline-block;
+    font-family: 'FreightSansProBook-Regular';
+    font-size: 1.5rem;
+    height: 32px;
+    margin-left: 1rem;
+  }
+
+  &__search {
+    display: flex;
+    flex: auto;
+    height: 48px;
+    padding: 0 .625rem 0 .625rem;
+  }
+}
+
+@media(--full-viewport) {
+  .navigation {
+    margin: 0 auto;
+    max-width: 940px;
+
+    &__branding-title {
+      height: 96px;
+    }
+
+    &__logo-svg {
+      height: 48px;
+      margin-left: .75rem;
+      width: 160px;
+    }
+
+    &__search {
+      align-items: center;
+      height: 96px;
+    }
+  }
+}

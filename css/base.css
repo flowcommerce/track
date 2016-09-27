@@ -1,0 +1,11 @@
+/*
+  Tracking Base CSS
+ */
+@import url(//flowcdn.io/util/fonts/track.css);
+@import "normalize.css";
+@import "./media.css";
+
+body {
+  font-family: 'FreightSansProBook-Regular', Helvetica, sans-serif;
+  font-size: .875rem;
+}
