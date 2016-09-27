@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import querystring from 'querystring';
+import BemHelper from '../../utilities/bem-helper';
 import Navigation from '../navigation';
 import Summary from '../summary';
 import Events from '../events';
@@ -7,6 +8,11 @@ import Footer from '../footer';
 import api from '../../api';
 import LabelEvents from '../../utilities/label-events';
 
+if (process.browser) {
+  require('./styles.css'); // eslint-disable-line global-require
+}
+
+const bem = new BemHelper('tracking-app');
 
 export default class App extends Component {
   state = {
@@ -70,7 +76,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <main className="tracking-app-container">
+      <main className={bem.block({ loaded: this.state.loaded })}>
         <Navigation onSearch={this.handleSearch} />
         <Summary
           event={this.getLastEvent()}
