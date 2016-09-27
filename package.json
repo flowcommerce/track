@@ -60,7 +60,7 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
-    "@flowio/node-sdk": "0.1.54",
+    "@flowio/node-sdk": "0.1.66-2",
     "invariant": "2.2.1",
     "lodash": "4.16.1",
     "react": "15.3.2",

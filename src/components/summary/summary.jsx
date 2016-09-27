@@ -18,6 +18,7 @@ const propTypes = {
       text: PropTypes.string,
     }),
   }),
+  estimatedDelivery: PropTypes.string,
   noResults: PropTypes.bool,
 };
 

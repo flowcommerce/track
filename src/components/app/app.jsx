@@ -50,14 +50,17 @@ export default class App extends Component {
   }
 
   doSearch(trackingId) {
-    api.label_events.get('demo', {
+    api.trackings.getTrackingsById(trackingId, {
       params: {
-        tracking_id: trackingId,
         sort: '-timestamp',
       },
     }).then((response) => {
-      const events = new LabelEvents(response.result);
-      this.setState({ eventGroups: events.getEventGroups(), loaded: true });
+      const events = new LabelEvents(response.result.labels);
+      this.setState({
+        eventGroups: events.getEventGroups(),
+        estimatedDelivery: events.getLabelEstimatedDeliveryDate(),
+        loaded: true,
+      });
     });
   }
 
@@ -71,6 +74,7 @@ export default class App extends Component {
         <Navigation onSearch={this.handleSearch} />
         <Summary
           event={this.getLastEvent()}
+          estimatedDelivery={this.state.estimatedDelivery}
           noResults={this.state.loaded && this.state.eventGroups.length === 0} />
         <Events eventGroups={this.state.eventGroups} />
         <Footer />
