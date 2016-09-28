@@ -17,14 +17,17 @@ const bem = new BemHelper('tracking-app');
 export default class App extends Component {
   state = {
     eventGroups: [],
-    loaded: false,
-  }
+    dataLoaded: false,
+    pageLoaded: false,
+  };
 
   componentDidMount() {
     const trackingId = this.getTrackingId();
 
     if (trackingId) {
       this.doSearch(trackingId);
+    } else {
+      this.setPageLoaded();
     }
   }
 
@@ -55,18 +58,38 @@ export default class App extends Component {
     return groups[0][0];
   }
 
+  setPageLoaded() {
+    this.setState({ pageLoaded: true });
+  }
+
   doSearch(trackingId) {
     api.trackings.getTrackingsById(trackingId, {
       params: {
         sort: '-timestamp',
       },
     }).then((response) => {
-      const events = new LabelEvents(response.result.labels);
-      this.setState({
-        eventGroups: events.getEventGroups(),
-        estimatedDelivery: events.getLabelEstimatedDeliveryDate(),
-        loaded: true,
-      });
+      switch (response.status) {
+      case 200: {
+        const events = new LabelEvents(response.result.labels);
+        this.setState({
+          eventGroups: events.getEventGroups(),
+          estimatedDelivery: events.getLabelEstimatedDeliveryDate(),
+          dataLoaded: true,
+        });
+        this.setPageLoaded();
+        break;
+      }
+      case 404:
+        this.setState({
+          dataLoaded: true,
+          notFound: true,
+        });
+        this.setPageLoaded();
+        break;
+      default:
+        this.setPageLoaded();
+        break;
+      }
     });
   }
 
@@ -76,14 +99,17 @@ export default class App extends Component {
 
   render() {
     return (
-      <main className={bem.block({ loaded: this.state.loaded })}>
+      <main className={bem.block({ loaded: this.state.pageLoaded })}>
         <Navigation onSearch={this.handleSearch} />
         <Summary
           event={this.getLastEvent()}
           estimatedDelivery={this.state.estimatedDelivery}
-          noResults={this.state.loaded && this.state.eventGroups.length === 0} />
-        <Events eventGroups={this.state.eventGroups} />
-        <Footer />
+          noResults={this.state.dataLoaded && this.state.eventGroups.length === 0}
+          notFound={this.state.notFound} />
+        <Events
+          eventGroups={this.state.eventGroups}
+          noResults={this.state.eventGroups.length === 0} />
+        <Footer noResults={this.state.eventGroups.length === 0} />
       </main>
     );
   }

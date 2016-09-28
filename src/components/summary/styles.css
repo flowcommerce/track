@@ -28,7 +28,7 @@
     color: #404040;
     font-family: 'FreightSansProMedium-Regular';
   	font-weight: 500;
-    text-align: left;
+    text-align: center;
   }
 
   &__date {
@@ -43,7 +43,7 @@
 
   &__generic-text {
     color: #808080;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -59,14 +59,28 @@
     }
 
     &__status {
-      width: auto;
       flex: 0 1;
+      margin: 0;
+      width: auto;
+    }
+
+    &__date {
+      font-size: 1.75rem;
+    }
+
+    &__text {
+      font-size: 1rem;
     }
 
     &__summary-text {
-      flex: auto;
       margin-left: 3rem;
       padding-top: 44px;
+      text-align: left;
+    }
+
+    &__generic-text {
+      color: #808080;
+      font-size: 1.75rem;
     }
   }
 }

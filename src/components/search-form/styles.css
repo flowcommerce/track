@@ -12,6 +12,7 @@
     flex: auto;
     font-family: 'FreightSansProBook-Regular', Helvetica, sans-serif;
   	font-size: 1rem;
+    font-variant-numeric: lining-nums;
     height: 30px;
     padding: 0 0 0 .3125rem;
     vertical-align: middle;
@@ -25,12 +26,33 @@
     height: 32px;
     margin-left: .75rem;
     padding: 0;
+    position: relative;
     vertical-align: middle;
     width: 60px;
+
+    &:active {
+      background-color: #0051b2;
+
+      .search-form__button-icon {
+        fill: #fff;
+      }
+    }
   }
 
   &__button-icon {
-    width: 18px;
+    fill: #0051b2;
     height: 18px;
+    left: calc(50% - (18px / 2));
+    position: absolute;
+    top: calc(50% - (18px / 2));
+    width: 18px;
+  }
+}
+
+@media(--full-viewport) {
+  .search-form {
+    &__button {
+      width: 73px;
+    }
   }
 }
