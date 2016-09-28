@@ -18,6 +18,11 @@ class SearchForm extends PureComponent {
   handleSubmit = (e) => {
     e.preventDefault();
     const value = this.inputTracking.value;
+
+    if (!value.trim()) {
+      return;
+    }
+
     this.props.onSubmit(value);
   }
 
@@ -34,7 +39,7 @@ class SearchForm extends PureComponent {
           className={bem.element('button')}
           type="submit"
           name="submit_search">
-          <Icon className={bem.element('button-icon')} name="icon-search-blue" />
+          <Icon className={bem.element('button-icon')} name="icon-search-clear" />
         </button>
       </form>
     );

@@ -20,10 +20,12 @@ const propTypes = {
   }),
   estimatedDelivery: PropTypes.string,
   noResults: PropTypes.bool,
+  notFound: PropTypes.bool,
 };
 
 const defaultProps = {
   noResults: false,
+  notFound: false,
 };
 
 const ICONS = {
@@ -55,7 +57,7 @@ const STATUS_TEXT = {
   delivered: 'Delivered',
   exception: 'Exception',
   expired: 'Expired',
-  no_results: 'Tracking Number Not Found',
+  no_results: 'The tracking number entered is not valid.',
 };
 
 const getStatusText = (event) => {
@@ -66,7 +68,7 @@ const getStatusText = (event) => {
   return STATUS_TEXT[event.status];
 };
 
-function Summary({ event, noResults }) {
+function Summary({ event, noResults, notFound }) {
   return (
     <section className={bem.block()}>
       <div className={bem.element('container')}>
@@ -106,9 +108,9 @@ function Summary({ event, noResults }) {
             );
           }
 
-          if (noResults) {
+          if (noResults || notFound) {
             return (
-              <span className={bem.element('date')}>
+              <span className={bem.element('generic-text')}>
                 {getStatusText({ status: 'no_results' })}
               </span>
             );

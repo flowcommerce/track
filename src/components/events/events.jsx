@@ -22,9 +22,14 @@ const propTypes = {
     status: PropTypes.oneOf[api.enums.trackingStatus],
     timestamp: PropTypes.string.isRequired,
   }))).isRequired,
+  noResults: PropTypes.bool,
 };
 
-function Events({ eventGroups }) {
+const defaultProps = {
+  noResults: true,
+};
+
+function Events({ eventGroups, noResults }) {
   return (
     <section className={bem.block()}>
       {eventGroups.map((events, groupIndex) => {
@@ -52,13 +57,27 @@ function Events({ eventGroups }) {
           </section>
         );
       })}
-      <section className={bem.element('disclaimer')}>
-        *Date & time are usually in the local time of the checkpoint location.
-      </section>
+      {(() => {
+        if (noResults) {
+          return (
+            <section className={bem.element('no-results')}>
+              Tracking details will be displayed here once available.
+            </section>
+          );
+        }
+
+        return (
+          <section className={bem.element('disclaimer')}>
+            *Date & time are usually in the local time of the checkpoint location.
+          </section>
+        );
+      })()}
+
     </section>
   );
 }
 
 Events.propTypes = propTypes;
+Events.defaultProps = defaultProps;
 
 export default Events;

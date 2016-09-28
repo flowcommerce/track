@@ -7,6 +7,7 @@ if (process.browser) {
 
 const bem = new BemHelper('footer');
 
+
 export default function Footer() {
   return (
     <footer className={bem.block()}>
