@@ -60,7 +60,7 @@ module.exports = {
       loader: 'json-loader',
     }, {
       test: /\.(css)$/,
-      loader: extract('style-loader', 'css-loader?sourceMap&-minimize!postcss-loader'),
+      loader: extract('style-loader', 'css-loader?sourceMap&-minimize&-autoprefixer!postcss-loader'),
       include: [
         path.resolve(__dirname, './src'),
         path.resolve(__dirname, './css'),
@@ -86,7 +86,7 @@ module.exports = {
       postcssCustomMedia,
       postcssNested,
       postcssCSSNext,
-      postcssNano({ zindex: false, discardUnused: false }),
+      postcssNano({ zindex: false, discardUnused: false, autoprefixer: false }),
     ];
   },
   plugins: [
