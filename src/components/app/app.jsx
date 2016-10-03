@@ -6,7 +6,7 @@ import Summary from '../summary';
 import Events from '../events';
 import Footer from '../footer';
 import api from '../../api';
-import LabelEvents from '../../utilities/label-events';
+import { groupEvents, getLabelEstimatedDeliveryDate } from '../../utilities/label-events';
 
 if (process.browser) {
   require('./styles.css'); // eslint-disable-line global-require
@@ -16,6 +16,7 @@ const bem = new BemHelper('tracking-app');
 
 export default class App extends Component {
   state = {
+    labels: [],
     eventGroups: [],
     dataLoaded: false,
     pageLoaded: false,
@@ -50,12 +51,12 @@ export default class App extends Component {
   }
 
   getLastEvent() {
-    const groups = this.state.eventGroups;
-    if (!groups.length || !groups[0].length) {
+    const labels = this.state.labels;
+    if (!labels.length || !labels[0].events.length) {
       return undefined;
     }
 
-    return groups[0][0];
+    return labels[0].events[0];
   }
 
   setPageLoaded() {
@@ -70,10 +71,9 @@ export default class App extends Component {
     }).then((response) => {
       switch (response.status) {
       case 200: {
-        const events = new LabelEvents(response.result.labels);
         this.setState({
-          eventGroups: events.getEventGroups(),
-          estimatedDelivery: events.getLabelEstimatedDeliveryDate(),
+          labels: groupEvents(response.result.labels),
+          estimatedDelivery: getLabelEstimatedDeliveryDate(response.result.labels),
           dataLoaded: true,
         });
         this.setPageLoaded();
@@ -104,10 +104,10 @@ export default class App extends Component {
         <Summary
           event={this.getLastEvent()}
           estimatedDelivery={this.state.estimatedDelivery}
-          noResults={this.state.dataLoaded && this.state.eventGroups.length === 0}
+          noResults={this.state.dataLoaded && this.state.labels.length === 0}
           notFound={this.state.notFound} />
         <Events
-          eventGroups={this.state.eventGroups}
+          labels={this.state.labels}
           noResults={this.state.eventGroups.length === 0} />
         <Footer noResults={this.state.eventGroups.length === 0} />
       </main>
