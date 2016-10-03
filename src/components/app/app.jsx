@@ -17,7 +17,6 @@ const bem = new BemHelper('tracking-app');
 export default class App extends Component {
   state = {
     labels: [],
-    eventGroups: [],
     dataLoaded: false,
     pageLoaded: false,
   };
@@ -108,8 +107,8 @@ export default class App extends Component {
           notFound={this.state.notFound} />
         <Events
           labels={this.state.labels}
-          noResults={this.state.eventGroups.length === 0} />
-        <Footer noResults={this.state.eventGroups.length === 0} />
+          noResults={this.state.labels.length === 0} />
+        <Footer noResults={this.state.labels.length === 0} />
       </main>
     );
   }

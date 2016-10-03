@@ -19,7 +19,7 @@ const propTypes = {
       carrier: PropTypes.string.isRequired,
       carrier_tracking_number: PropTypes.string.isRequired,
       delivery_estimate: PropTypes.string.isRequired,
-      events: PropTypes.arrayOf(PropTypes.shape({
+      eventGroups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
         address: PropTypes.shape({
           city: PropTypes.string,
@@ -30,15 +30,6 @@ const propTypes = {
         description: PropTypes.string.isRequired,
         status: PropTypes.oneOf[api.enums.trackingStatus],
         timestamp: PropTypes.string.isRequired,
-      })),
-      eventGroups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        address: PropTypes.shape({
-          city: PropTypes.string,
-          country: PropTypes.string,
-          province: PropTypes.string,
-          text: PropTypes.string,
-        }).isRequired,
       }))),
       id: PropTypes.string.isRequired,
       status: PropTypes.string.isRequired,
@@ -56,73 +47,72 @@ const defaultProps = {
 function Events({ labels, noResults }) {
   return (
     <section className={bem.block()}>
-      {labels.map((label, labelIndex) => {
-        return (
-          <div className={bem.element('label')} key={labelIndex}>
-            <section
-              className={bem.element('carrier-info', { first: labelIndex === 0 })} key={labelIndex}>
-              <div className={bem.element('carrier')}>Carrier: {label.carrier}</div>
-              <div className={bem.element('tracking-number')}>
-                Tracking #: {label.carrier_tracking_number}
-              </div>
-              {(() => {
-                const linkInfo = getTrackingLink(label.carrier, label.carrier_tracking_number);
+      {labels.map((label, labelIndex) =>
+        (
+        <div className={bem.element('label')} key={labelIndex}>
+          <section
+            className={bem.element('carrier-info', { first: labelIndex === 0 })} key={labelIndex}>
+            <div className={bem.element('carrier')}>Carrier: {label.carrier}</div>
+            <div className={bem.element('tracking-number')}>
+              Tracking #: {label.carrier_tracking_number}
+            </div>
+            {(() => {
+              const linkInfo = getTrackingLink(label.carrier, label.carrier_tracking_number);
 
-                if (linkInfo) {
-                  return (
-                    <div className={bem.element('tracking-link')}>
-                      <a className={bem.element('tracking-link-a-icon')} href={linkInfo.url}>
-                        <Icon
-                          className={bem.element('tracking-link-icon')}
-                          name="icon-arrow-right" />
-                      </a>
+              if (linkInfo) {
+                return (
+                  <div className={bem.element('tracking-link')}>
+                    <a className={bem.element('tracking-link-a-icon')} href={linkInfo.url}>
+                      <Icon
+                        className={bem.element('tracking-link-icon')}
+                        name="icon-arrow-right" />
+                    </a>
 
-                      <a className={bem.element('tracking-link-a-text')} href={linkInfo.url}>
-                        {linkInfo.text}
-                      </a>
-                    </div>
-                  );
-                }
-
-                return null;
-              })()}
-            </section>
-            {label.eventGroups.map((events, groupIndex) => {
-              const dayFormat = new DateFormat(events[0].timestamp);
-              return (
-                <section className={bem.element('event-group')} key={groupIndex}>
-                  <div
-                    className={bem.element('day', { first: labelIndex === 0 && groupIndex === 0 })}>
-                    {dayFormat.getDate()}
+                    <a className={bem.element('tracking-link-a-text')} href={linkInfo.url}>
+                      {linkInfo.text}
+                    </a>
                   </div>
-                  <div className={bem.element('events')}>
-                    {events.map((event, eventIndex) => {
-                      const timeFormat = new DateFormat(event.timestamp);
-                      return (
-                        <section
-                          className={bem.element(
-                            'event',
-                            { first: labelIndex === 0 && groupIndex === 0 && eventIndex === 0 }
-                          )}
-                          key={eventIndex}>
-                          <div className={bem.element('time')}>{timeFormat.getTime()}</div>
-                          <section className={bem.element('details')}>
-                            <div className={bem.element('status')}>{event.status}</div>
-                            <div className={bem.element('message')}>{event.description}</div>
-                            <div className={bem.element('location')}>
-                              {formatAddress(event.address)}
-                            </div>
-                          </section>
+                );
+              }
+
+              return null;
+            })()}
+          </section>
+          {label.eventGroups.map((events, groupIndex) => {
+            const dayFormat = new DateFormat(events[0].timestamp);
+            return (
+              <section className={bem.element('event-group')} key={groupIndex}>
+                <div
+                  className={bem.element('day', { first: labelIndex === 0 && groupIndex === 0 })}>
+                  {dayFormat.getDate()}
+                </div>
+                <div className={bem.element('events')}>
+                  {events.map((event, eventIndex) => {
+                    const timeFormat = new DateFormat(event.timestamp);
+                    return (
+                      <section
+                        className={bem.element(
+                          'event',
+                          { first: labelIndex === 0 && groupIndex === 0 && eventIndex === 0 }
+                        )}
+                        key={eventIndex}>
+                        <div className={bem.element('time')}>{timeFormat.getTime()}</div>
+                        <section className={bem.element('details')}>
+                          <div className={bem.element('status')}>{event.status}</div>
+                          <div className={bem.element('message')}>{event.description}</div>
+                          <div className={bem.element('location')}>
+                            {formatAddress(event.address)}
+                          </div>
                         </section>
-                      );
-                    })}
-                  </div>
-                </section>
-              );
-            })}
-          </div>
-        );
-      })}
+                      </section>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })};
+        </div>
+      ))}
 
 
       {(() => {
@@ -140,7 +130,6 @@ function Events({ labels, noResults }) {
           </section>
         );
       })()}
-
     </section>
   );
 }
