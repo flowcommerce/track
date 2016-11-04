@@ -110,7 +110,7 @@ function Events({ labels, noResults }) {
                 </div>
               </section>
             );
-          })};
+          })}
         </div>
       ))}
 
