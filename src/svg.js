@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /**
  * This is here to help webpack generate a sprite svg
  */
