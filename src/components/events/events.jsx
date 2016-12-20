@@ -62,13 +62,21 @@ function Events({ labels, noResults }) {
               if (linkInfo) {
                 return (
                   <div className={bem.element('tracking-link')}>
-                    <a className={bem.element('tracking-link-a-icon')} href={linkInfo.url}>
+                    <a
+                      className={bem.element('tracking-link-a-icon')}
+                      href={linkInfo.url}
+                      target="_blank"
+                      rel="noopener noreferrer">
                       <Icon
                         className={bem.element('tracking-link-icon')}
                         name="icon-arrow-right" />
                     </a>
 
-                    <a className={bem.element('tracking-link-a-text')} href={linkInfo.url}>
+                    <a
+                      className={bem.element('tracking-link-a-text')}
+                      href={linkInfo.url}
+                      target="_blank"
+                      rel="noopener noreferrer">
                       {linkInfo.text}
                     </a>
                   </div>
