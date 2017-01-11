@@ -45,6 +45,36 @@ const defaultProps = {
 };
 
 function Events({ labels, noResults }) {
+  const trackingLink = (label) => {
+    const linkInfo = getTrackingLink(label.carrier, label.carrier_tracking_number);
+
+    if (linkInfo) {
+      return (
+        <div className={bem.element('tracking-link')}>
+          <a
+            className={bem.element('tracking-link-a-icon')}
+            href={linkInfo.url}
+            target="_blank"
+            rel="noopener noreferrer">
+            <Icon
+              className={bem.element('tracking-link-icon')}
+              name="icon-arrow-right" />
+          </a>
+
+          <a
+            className={bem.element('tracking-link-a-text')}
+            href={linkInfo.url}
+            target="_blank"
+            rel="noopener noreferrer">
+            {linkInfo.text}
+          </a>
+        </div>
+      );
+    }
+
+    return label.carrier_tracking_number;
+  };
+
   return (
     <section className={bem.block()}>
       {labels.map((label, labelIndex) =>
@@ -52,39 +82,9 @@ function Events({ labels, noResults }) {
         <div className={bem.element('label')} key={labelIndex}>
           <section
             className={bem.element('carrier-info', { first: labelIndex === 0 })} key={labelIndex}>
-            <div className={bem.element('carrier')}>Carrier: {label.carrier}</div>
             <div className={bem.element('tracking-number')}>
-              Tracking #: {label.carrier_tracking_number}
+              {label.carrier} Tracking #:&nbsp;{trackingLink(label)}
             </div>
-            {(() => {
-              const linkInfo = getTrackingLink(label.carrier, label.carrier_tracking_number);
-
-              if (linkInfo) {
-                return (
-                  <div className={bem.element('tracking-link')}>
-                    <a
-                      className={bem.element('tracking-link-a-icon')}
-                      href={linkInfo.url}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      <Icon
-                        className={bem.element('tracking-link-icon')}
-                        name="icon-arrow-right" />
-                    </a>
-
-                    <a
-                      className={bem.element('tracking-link-a-text')}
-                      href={linkInfo.url}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      {linkInfo.text}
-                    </a>
-                  </div>
-                );
-              }
-
-              return null;
-            })()}
           </section>
           {label.eventGroups.map((events, groupIndex) => {
             const dayFormat = new DateFormat(events[0].timestamp);

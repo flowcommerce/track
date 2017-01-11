@@ -5,11 +5,16 @@
 
   a:link, a:active, a:visited, a:hover {
     color: #808080;
-    text-decoration: none;
+    text-decoration: underline;;
   }
 
   &__carrier-info--first {
     color: #0051b2;
+
+    & a:link, a:active, a:visited, a:hover {
+      color: var(--flow-blue);
+      text-decoration: underline;;
+    }
   }
 
   &__event-group {
@@ -180,7 +185,7 @@
     }
 
     &__tracking-link {
-      font-size: 1rem;
+      font-size: 1.125rem;
       padding-right: 1.25rem;
     }
 
