@@ -1,6 +1,6 @@
 {
   "name": "track",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "UI for https://track.flow.io",
   "main": "index.js",
   "scripts": {
@@ -45,6 +45,7 @@
     "imports-loader": "0.6.5",
     "modernizr": "3.3.1",
     "normalize.css": "4.2.0",
+    "npm-run-all": "4.0.1",
     "postcss-cli": "2.6.0",
     "postcss-cssnext": "2.8.0",
     "postcss-custom-media": "5.0.1",
