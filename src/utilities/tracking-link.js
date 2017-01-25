@@ -25,6 +25,11 @@ export default function (carrier, number) {
       url: `https://tools.usps.com/go/TrackConfirmAction?qtc_tLabels1=${number}`,
       text: number,
     };
+  case 'fedex':
+    return {
+      url: `https://www.fedex.com/apps/fedextrack/?tracknumbers=${number}`,
+      text: number,
+    };
   default:
     return undefined;
   }
