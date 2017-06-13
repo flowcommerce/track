@@ -1,6 +1,6 @@
 {
   "name": "track",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "UI for https://track.flow.io",
   "main": "index.js",
   "scripts": {
