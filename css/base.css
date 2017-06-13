@@ -3,6 +3,7 @@
  */
 @import url(//flowcdn.io/util/fonts/track.css);
 @import "normalize.css";
+@import "./variables.css";
 @import "./media.css";
 
 body {

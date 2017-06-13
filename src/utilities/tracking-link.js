@@ -30,6 +30,11 @@ export default function (carrier, number) {
       url: `https://www.fedex.com/apps/fedextrack/?tracknumbers=${number}`,
       text: number,
     };
+  case 'sf-express':
+    return {
+      url: `http://www.sf-express.com/cn/en/dynamic_function/waybill/#search/bill-number/${number}`,
+      text: number,
+    };
   default:
     return undefined;
   }
