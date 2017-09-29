@@ -45,6 +45,11 @@ export default class App extends Component {
       return pathParts[1];
     }
 
+    // https://track.flow.io/SF701318902181840
+    if (pathParts.length === 2 && pathParts[1].toLowerCase().startsWith('sf70')) {
+      return pathParts[1];
+    }
+
     // no valid tracking ids provided
     return undefined;
   }
