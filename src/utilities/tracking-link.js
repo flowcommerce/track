@@ -10,6 +10,21 @@ export default function (carrier, number) {
       url: `http://www.dhl.com/en/express/tracking.html?AWB=${number}&brand=DHL`,
       text: number,
     };
+  case 'dhl-ecommerce':
+    return {
+      url: `https://webtrack.dhlglobalmail.com/?trackingnumber=${number}`,
+      text: number,
+    };
+  case 'dhl-global-mail':
+    return {
+      url: `https://webtrack.dhlglobalmail.com/?trackingnumber=${number}`,
+      text: number,
+    };
+  case 'dhl-parcel':
+    return {
+      url: `https://webtrack.dhlglobalmail.com/?trackingnumber=${number}`,
+      text: number,
+    };
   case 'landmark':
     return {
       url: `https://mercury.landmarkglobal.com/tracking/track.php?trck=${number}&Submit=Track`,
