@@ -8,6 +8,6 @@
     "extends": "@flowio/flowio",
     "globals": {
       "chai": true,
-      "expect": true,
+      "expect": true
     }
 }
