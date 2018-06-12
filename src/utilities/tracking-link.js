@@ -8,7 +8,7 @@ export default function (carrier, number) {
   case 'canada-post':
     return {
       url: `https://www.canadapost.ca/cpotools/apps/track/personal/findByTrackNumber?trackingNumber=${number}`,
-      text: number
+      text: number,
     };
   case 'dhl':
     return {
