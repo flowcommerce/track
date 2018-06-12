@@ -5,7 +5,7 @@ export default function (carrier, number) {
       url: `http://tracking.asendiausa.com/t.aspx?p=${number}`,
       text: number,
     };
-  case `canada-post`:
+  case 'canada-post':
     return {
       url: `https://www.canadapost.ca/cpotools/apps/track/personal/findByTrackNumber?trackingNumber=${number}`,
       text: number
