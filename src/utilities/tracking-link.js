@@ -32,7 +32,7 @@ export default function (carrier, number) {
     };
   case 'landmark':
     return {
-      url: `https://mercury.landmarkglobal.com/tracking/track.php?trck=${number}&Submit=Track`,
+      url: `https://track.landmarkglobal.com/?trck=${number}`,
       text: number,
     };
   case 'ups':
