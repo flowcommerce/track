@@ -1,22 +1,22 @@
 const presets = [
   [
-    "@babel/env",
+    '@babel/env',
     {
       targets: {
-        edge: "17",
-        firefox: "60",
-        chrome: "67",
-        safari: "11.1",
-        ie: "11",
+        edge: '17',
+        firefox: '60',
+        chrome: '67',
+        safari: '11.1',
+        ie: '11',
       },
-      useBuiltIns: "usage",
+      useBuiltIns: 'usage',
     },
   ],
-  "@babel/preset-react",
+  '@babel/preset-react',
 ];
 
 const plugins = [
-  "@babel/plugin-proposal-class-properties",
-]
+  '@babel/plugin-proposal-class-properties',
+];
 
 module.exports = { presets, plugins };

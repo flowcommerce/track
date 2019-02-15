@@ -1,14 +1,17 @@
 const path = require('path');
-const postcssCustomMedia = require('postcss-custom-media');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.jsx',
+  entry: [
+    path.resolve(__dirname, './src/css.js'),
+    path.resolve(__dirname, './src/index.jsx'),
+    path.resolve(__dirname, './src/svg.js'),
+  ],
   output: {
-    path: path.resolve(__dirname, 'dist/js')
+    path: path.resolve(__dirname, 'dist/js'),
   },
   resolve: {
-    extensions: [".jsx", ".js"]
+    extensions: ['.jsx', '.js'],
   },
   module: {
     rules: [
@@ -26,8 +29,8 @@ module.exports = {
         include: [
           path.resolve(__dirname, './src'),
           path.resolve(__dirname, './css'),
-        ]
+        ],
       },
-    ]
-  }
+    ],
+  },
 };
