@@ -2,7 +2,7 @@ const path = require('path');
 const postcssCustomMedia = require('postcss-custom-media');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: './src/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist/js')

@@ -10,7 +10,7 @@
     "build:modernizr": "modernizr -u -c ./modernizr.json -d ./dist/js/modernizr.js",
     "build:assets": "webpack",
     "build:html": "cp ./index.html dist",
-    "dev": "webpack-dev-server --config webpack-dev.config.js",
+    "dev": "webpack-dev-server --config webpack.development.js",
     "lint": "eslint --cache .",
     "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -39,7 +39,8 @@
     "postcss-preset-env": "^6.5.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.4",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
