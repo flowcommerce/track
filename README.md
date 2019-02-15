@@ -20,7 +20,7 @@ You can view the dev version of the page at: [http://localhost:8000/index-dev.ht
 
 ## Deploying
 
-Due to the nature of this application it is not setup to deploy via Delta. To deploy run the release command:
+To deploy run the release command:
 
 ```
 go run release.go
