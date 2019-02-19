@@ -5,9 +5,17 @@
         "mocha": true,
         "node": true
     },
-    "extends": "@flowio/flowio",
+    "extends": "airbnb",
     "globals": {
       "chai": true,
       "expect": true
+    },
+    "rules": {
+      "import/no-extraneous-dependencies": ["error", {
+        "devDependencies": [
+          "**/postcss.config.js",
+          "**/webpack.*.js"
+        ]
+      }]
     }
 }

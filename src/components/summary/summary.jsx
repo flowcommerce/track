@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import BemHelper from '../../utilities/bem-helper';
 import DateFormat from '../../utilities/date-format';
 import Icon from '../icon';

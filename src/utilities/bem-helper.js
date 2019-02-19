@@ -50,7 +50,6 @@ function createClassNames(baseClassName, ...args) {
  * ```
  */
 export default class BemHelper {
-
   static block(block, ...args) {
     const instance = new BemHelper(block);
     return instance.block(...args);

@@ -3,9 +3,9 @@ import DateFormat from './date-format';
 function getEventGroups(eventGroups) {
   return Object
     .keys(eventGroups)
-    .map((date) => new Date(eventGroups[date][0].timestamp)) // avoid timezone confusion
+    .map(date => new Date(eventGroups[date][0].timestamp)) // avoid timezone confusion
     .sort((a, b) => b.getTime() - a.getTime())
-    .map((date) => eventGroups[new DateFormat(date).getDate()]);
+    .map(date => eventGroups[new DateFormat(date).getDate()]);
 }
 
 export function groupEvents(labels) {

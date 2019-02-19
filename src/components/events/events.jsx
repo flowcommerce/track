@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import formatAddress from '../../utilities/address-format';
 import api from '../../api';
 import BemHelper from '../../utilities/bem-helper';

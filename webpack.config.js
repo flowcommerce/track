@@ -1,129 +1,61 @@
-var pkg = require('./package.json');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path = require('path');
-var postcssImport = require('postcss-import');
-var postcssCustomMedia = require('postcss-custom-media');
-var postcssNested = require('postcss-nested');
-var postcssCSSNext = require('postcss-cssnext');
-var postcssNano = require('cssnano');
-var SvgStore = require('webpack-svgstore-plugin');
-
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var extract = ExtractTextPlugin.extract;
-
-function dedent(strings, ...values) {
-  function format(string) {
-    let size = -1;
-    return string.replace(/\n(\s+)/g, (m, m1) => {
-      if (size < 0) {
-        size = m1.replace(/\t/g, '    ').length;
-      }
-
-      return '\n' + m1.slice(Math.min(m1.length, size));
-    });
-  }
-
-  let output = strings
-    .slice(0, values.length + 1)
-    .map((text, i) => (i === 0 ? '' : values[i - 1]) + text)
-    .join('');
-
-  return format(output);
-}
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
-  devtool: 'source-map',
-  bail: true,
+  mode: 'production',
   entry: [
     path.resolve(__dirname, './src/css.js'),
     path.resolve(__dirname, './src/index.jsx'),
     path.resolve(__dirname, './src/svg.js'),
   ],
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/',
-    filename: 'js/build.js',
-    chunkFilename: 'js/build-[chunkhash].js',
+    path: path.resolve(__dirname, 'dist/js')
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: [".jsx", ".js"]
   },
   module: {
-    loaders: [{
-      test: /\.(js|jsx)$/,
-      loader: 'babel-loader',
-      presets: ['flowio'],
-      exclude: [nodeModulesPath],
-    }, {
-      test: /\.json$/,
-      loader: 'json-loader',
-    }, {
-      test: /\.(css)$/,
-      loader: extract('style-loader', 'css-loader?sourceMap&-minimize&-autoprefixer!postcss-loader'),
-      include: [
-        path.resolve(__dirname, './src'),
-        path.resolve(__dirname, './css'),
-        path.resolve(__dirname, './node_modules/highlight.js/styles'),
-      ],
-    }, {
-      test: /\.(gif|png|jpg|jpeg|svg)$/,
-      loader: 'file-loader?name=img/[hash].[ext]',
-      exclude: [nodeModulesPath],
-    }, {
-      test: /\.(eot|woff2|woff|ttf|otf)$/,
-      loader: 'file-loader?name=fonts/[hash].[ext]',
-      exclude: [nodeModulesPath],
-    }, {
-      test: /\.(wav|mp3)$/,
-      loader: 'file-loader?name=sounds/[hash].[ext]',
-      exclude: [nodeModulesPath],
-    }],
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        use: ['babel-loader', 'astroturf/loader'],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          'css-loader',
+          'postcss-loader',
+        ],
+        include: [
+          path.resolve(__dirname, './src'),
+          path.resolve(__dirname, './css'),
+        ]
+      },
+    ]
   },
-  postcss: function(webpack) {
-    return [
-      postcssImport({ addDependencyTo: webpack }),
-      postcssCustomMedia,
-      postcssNested,
-      postcssCSSNext,
-      postcssNano({ zindex: false, discardUnused: false, autoprefixer: false }),
-    ];
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      'window.fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
-    }),
-    new webpack.BannerPlugin(dedent`
-      Package: ${pkg.name}
-      Abstract: ${pkg.description}
-      Version: ${pkg.version}
-      Build Date: ${new Date().toString()}
-      Copyright (C) ${new Date().getFullYear()} Flow Commerce Inc. All Rights Reserved.`),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
-        'VERSION': JSON.stringify(pkg.version),
-      },
-    }),
-    new webpack.IgnorePlugin(/node-fetch/),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-      },
-    }),
-    new SvgStore({
-      // svgo options
-      svgoOptions: {
-        plugins: [
-          { removeTitle: true }
-        ]
-      }
-    }),
-    new ExtractTextPlugin('css/build.css', {
-      allChunks: true,
-    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      path: path.resolve(__dirname, 'dist/css'),
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
   ],
 };
