@@ -30,6 +30,6 @@ go run release.go
 
 ## CloudFlare redirects
 
-This app is a static file that is hosted in S3 and served via CloudFlare. It's also responsible for handling redirect of pretty URLs like `https://track.flow.io/SF704472243261382` to `https://track.flow.io/?number=SF704472243261382`.
+This app is a static file that is hosted in S3 and served via CloudFlare. It's also responsible for handling redirect of pretty URLs like `https://track.flow.io/SF704472243261382` to `https://track.flow.io/index.html?number=SF704472243261382`.
 
 Note that the redirects are for the tracking code prefixes `F70` and `SF70`. If the tracking number format changes in any way, CloudFlare will need to be updated as well.
