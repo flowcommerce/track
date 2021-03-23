@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/flowcommerce/track.svg?token=8bzVqzHy6JVEQr9mN9hx&branch=master)](https://travis-ci.com/flowcommerce/track)
+[![Build Status](https://travis-ci.com/flowcommerce/track.svg?token=8bzVqzHy6JVEQr9mN9hx&branch=main)](https://travis-ci.com/flowcommerce/track)
 
 # track
 
