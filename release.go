@@ -6,8 +6,8 @@ import (
 
 func main() {
 	executor := executor.Create("track")
-	executor = executor.Add("git checkout master")
-	executor = executor.Add("git pull origin master")
+	executor = executor.Add("git checkout main")
+	executor = executor.Add("git pull origin main")
 	executor = executor.Add("dev tag")
 	executor = executor.Add("npm install && npm prune")
 	executor = executor.Add("npm run build")
