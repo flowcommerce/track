@@ -3,9 +3,9 @@ import DateFormat from './date-format';
 function getEventGroups(eventGroups) {
   return Object
     .keys(eventGroups)
-    .map(date => new Date(eventGroups[date][0].timestamp)) // avoid timezone confusion
+    .map((date) => new Date(eventGroups[date][0].timestamp)) // avoid timezone confusion
     .sort((a, b) => b.getTime() - a.getTime())
-    .map(date => eventGroups[new DateFormat(date).getDate()]);
+    .map((date) => eventGroups[new DateFormat(date).getDate()]);
 }
 
 export function groupEvents(labels) {
@@ -14,9 +14,15 @@ export function groupEvents(labels) {
       const dateFormat = new DateFormat(event.timestamp);
       const date = dateFormat.getDate();
       const existingEvents = groups[date] || [];
-      return Object.assign({}, groups, { [dateFormat.getDate()]: existingEvents.concat(event) });
+      return {
+        ...groups,
+        [dateFormat.getDate()]: existingEvents.concat(event),
+      };
     }, {});
-    return Object.assign({}, label, { eventGroups: getEventGroups(eventGroups) });
+    return {
+      ...label,
+      eventGroups: getEventGroups(eventGroups),
+    };
   });
 }
 
