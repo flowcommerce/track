@@ -3,11 +3,13 @@
 .search-form {
   display: flex;
   flex: auto;
+  align-items: flex-end;
+  position: relative;
 
   &__text-input {
     border: solid 1px #d9d9d9;
     border-radius: 4px;
-    color: #0051b2;
+    color: black;
     display: inline-block;
     flex: auto;
     font-family: 'FreightSansProBook-Regular', Helvetica, sans-serif;
@@ -16,31 +18,46 @@
     height: 30px;
     padding: 0 0 0 .3125rem;
     vertical-align: middle;
+    padding: 5px;
+    padding-left: 10px;
     width: 100%;
   }
 
+  &__text-input:focus-visible { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    border: 1px solid black;
+    outline: black;
+  }
+  &__text-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #B5BEC9;
+    opacity: 1; /* Firefox */
+  }
+
+
   &__button {
     background: transparent;
-    border: solid 1px #0051b2;
     border-radius: 4px;
     height: 32px;
     margin-left: .75rem;
+    border: none;
     padding: 0;
     position: relative;
     vertical-align: middle;
     width: 60px;
+    position: absolute;
+    right: -15px;
+    cursor: pointer;
+    top: 5px;
+    bottom: 0;
 
     &:active {
-      background-color: #0051b2;
-
       .search-form__button-icon {
-        fill: #fff;
+        fill: black;
       }
     }
   }
 
   &__button-icon {
-    fill: #0051b2;
+    fill: #B5BEC9;
     height: 18px;
     left: calc(50% - (18px / 2));
     position: absolute;

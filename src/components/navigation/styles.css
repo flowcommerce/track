@@ -2,14 +2,10 @@
 
 .navigation {
   display: flex;
-  flex-wrap: wrap;
-
-  &__branding-title {
-    align-items: center;
-    display: flex;
-    flex: auto;
-    height: 56px;
-  }
+  background: #262832;
+  padding: 0 1.5em;
+  align-items: center;
+  height: 50px;
 
   &__logo-svg {
     height: 24px;
@@ -38,11 +34,6 @@
 @media(--full-viewport) {
   .navigation {
     margin: 0 auto;
-    max-width: 940px;
-
-    &__branding-title {
-      height: 96px;
-    }
 
     &__logo-svg {
       height: 32px;

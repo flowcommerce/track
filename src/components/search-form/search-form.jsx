@@ -32,6 +32,7 @@ class SearchForm extends PureComponent {
       <form className={bem.block()} onSubmit={this.handleSubmit} name="tracking_search">
         <input
           ref={(input) => { this.inputTracking = input; }}
+          placeholder="Search Anything..."
           className={bem.element('text-input')}
           type="text"
           name="tracking_q"

@@ -74,13 +74,17 @@
 
     &__summary-text {
       margin-left: 3rem;
-      padding-top: 44px;
       text-align: left;
+      display: flex;
+      flex-direction: column;
+      margin-top: 40px;
+
     }
 
     &__generic-text {
       color: #808080;
       font-size: 1.75rem;
+      margin-bottom: 30px;
     }
   }
 }

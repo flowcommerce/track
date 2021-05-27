@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BemHelper from '../../utilities/bem-helper';
 import DateFormat from '../../utilities/date-format';
+import SearchForm from '../search-form';
 import Icon from '../icon';
 
 if (process.browser) {
@@ -69,7 +70,7 @@ const getStatusText = (event) => {
   return STATUS_TEXT[event.status];
 };
 
-function Summary({ event, noResults, notFound }) {
+function Summary({ event, noResults, notFound, onSearch }) {
   return (
     <section className={bem.block()}>
       <div className={bem.element('container')}>
@@ -124,6 +125,7 @@ function Summary({ event, noResults, notFound }) {
             </span>
           );
         })()}
+         <SearchForm onSubmit={onSearch} />
         </div>
       </div>
     </section>
