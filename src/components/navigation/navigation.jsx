@@ -11,11 +11,7 @@ if (process.browser) {
 
 const bem = new BemHelper('navigation');
 
-const propTypes = {
-  onSearch: PropTypes.func.isRequired,
-};
-
-function Navigation({ onSearch }) {
+function Navigation() {
   return (
     <section className={bem.block()}>
         <FlowLogo className={bem.element('logo-svg')} name="flow-branding-color" />
@@ -24,6 +20,5 @@ function Navigation({ onSearch }) {
 }
 
 Navigation.displayName = 'Navigation';
-Navigation.propTypes = propTypes;
 
 export default Navigation;
