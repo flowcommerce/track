@@ -4,6 +4,11 @@ node_js:
 cache:
   directories:
   - $HOME/.npm
+env:
+  global:
+  - IMAGE_NAME=flowcommerce/console
+before_install:
+- echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
 script:
 - npm run lint
 branches:
