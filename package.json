@@ -63,7 +63,6 @@
     "invariant": "^2.2.4",
     "lodash": "^4.17.11",
     "react-icons-emotion": "npm:@flowio/react-icons@^3.0.0-alpha.17",
-    "@flowio/react-icons": "3.0.0-alpha.17",
     "normalize.css": "^8.0.1",
     "postcss-nested": "^4.1.1",
     "prop-types": "^15.7.2",
