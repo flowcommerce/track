@@ -6,7 +6,7 @@ cache:
   - $HOME/.npm
 env:
   global:
-  - IMAGE_NAME=flowcommerce/console
+  - IMAGE_NAME=flowcommerce/track
 before_install:
 - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
 script:
