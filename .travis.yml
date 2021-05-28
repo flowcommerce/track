@@ -5,7 +5,7 @@ cache:
   directories:
   - node_modules
 script:
-- rm -rf dist
+- rm -rf node_modules
 - npm run lint
 branches:
   only:
