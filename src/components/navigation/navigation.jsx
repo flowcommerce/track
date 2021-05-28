@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BemHelper from '../../utilities/bem-helper';
+import FlowLogo from '../icon/FlowIcon';
 import SearchForm from '../search-form';
 import Icon from '../icon';
 
@@ -10,25 +11,14 @@ if (process.browser) {
 
 const bem = new BemHelper('navigation');
 
-const propTypes = {
-  onSearch: PropTypes.func.isRequired,
-};
-
-function Navigation({ onSearch }) {
+function Navigation() {
   return (
     <section className={bem.block()}>
-      <div className={bem.element('branding-title')}>
-        <Icon className={bem.element('logo-svg')} name="flow-branding-color" />
-        <span className={bem.element('title')}>Tracking</span>
-      </div>
-      <div className={bem.element('search')}>
-        <SearchForm onSubmit={onSearch} />
-      </div>
+        <FlowLogo className={bem.element('logo-svg')} name="flow-branding-color" />
     </section>
   );
 }
 
 Navigation.displayName = 'Navigation';
-Navigation.propTypes = propTypes;
 
 export default Navigation;

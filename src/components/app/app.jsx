@@ -104,8 +104,9 @@ export default class App extends Component {
   render() {
     return (
       <main className={bem.block({ loaded: this.state.pageLoaded })}>
-        <Navigation onSearch={this.handleSearch} />
+        <Navigation />
         <Summary
+          onSearch={this.handleSearch}
           event={this.getLastEvent()}
           estimatedDelivery={this.state.estimatedDelivery}
           noResults={this.state.dataLoaded && this.state.labels.length === 0}
