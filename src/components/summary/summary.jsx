@@ -86,7 +86,7 @@ function Summary({ event, noResults, notFound, onSearch }) {
             if (event.status === 'delivered') {
               const fullDate = new DateFormat(event.timestamp).getDateYear();
               return (
-                <div>
+                <div className={bem.element('generic-text')}>
                   <span className={bem.element('date')}>
                     Delivered on {fullDate}
                   </span>
@@ -99,7 +99,7 @@ function Summary({ event, noResults, notFound, onSearch }) {
             }
 
             return (
-              <div>
+              <div className={bem.element('generic-text')}>
                 <span className={bem.element('date')}>
                   {getStatusText(event)}
                 </span>
@@ -112,17 +112,17 @@ function Summary({ event, noResults, notFound, onSearch }) {
 
           if (noResults || notFound) {
             return (
-              <span className={bem.element('generic-text')}>
+              <div className={bem.element('generic-text')}>
                 {getStatusText({ status: 'no_results' })}
-              </span>
+              </div>
             );
           }
 
           return (
-            <span className={bem.element('generic-text')}>
+            <div className={bem.element('generic-text')}>
               Looking for your package? <br />
               Enter a tracking number to begin.
-            </span>
+            </div>
           );
         })()}
          <SearchForm onSubmit={onSearch} />
