@@ -12,7 +12,7 @@ export default function (carrier, number) {
       };
     case 'dhl':
       return {
-        url: `http://www.dhl.com/en/express/tracking.html?AWB=${number}&brand=DHL`,
+        url: `https://mydhl.express.dhl/us/en/tracking.html#/results?id=${number}&brand=DHL`,
         text: number,
       };
     case 'dhl-ecommerce':
