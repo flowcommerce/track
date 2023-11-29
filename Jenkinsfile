@@ -90,10 +90,11 @@ pipeline {
             script {
               //semver = VERSION.printable()
               sh """
+                export NODE_ENV=development
                 node --version
                 npm --version
                 echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-                sleep 1800
+                #sleep 1800
                 npm ci
                 npm install && npm prune
                 npm run build
