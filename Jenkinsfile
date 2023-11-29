@@ -87,8 +87,6 @@ pipeline {
               echo "https://$GIT_USERNAME:$GIT_PASSWORD@github.com" > /tmp/git-credentials
               git config --global --add safe.directory /home/jenkins/workspace
               git clone https://github.com/flowcommerce/track.git track
-            """
-            sh """
               cd track
 	            npm install && npm prune
 	            npm run build
