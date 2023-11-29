@@ -75,7 +75,6 @@ pipeline {
     stage('Build new release') {
       environment {
         NPM_TOKEN = credentials('jenkins-npm-automation-token')
-        NODE_ENV = 'development'
       }
       when { not { branch 'main' } }
       steps {
@@ -90,7 +89,7 @@ pipeline {
             script {
               //semver = VERSION.printable()
               sh """
-                export NODE_ENV=development
+                #export NODE_ENV=development
                 node --version
                 npm --version
                 echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
