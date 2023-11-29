@@ -52,7 +52,7 @@ pipeline {
     }
 
     stage('Lint') {
-      //when { not { branch 'main' } }
+      when { not { branch 'main' } }
       steps {
         container('nodejs') {
           script {
