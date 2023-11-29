@@ -86,6 +86,7 @@ pipeline {
             script {
               semver = VERSION.printable()
               sh """
+                sleep 1800
                 git config --global credential.helper "store --file=/tmp/git-credentials"
                 echo "https://$GIT_USERNAME:$GIT_PASSWORD@github.com" > /tmp/git-credentials
                 git config --global --add safe.directory /home/jenkins/workspace
