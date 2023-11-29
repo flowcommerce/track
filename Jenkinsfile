@@ -70,7 +70,7 @@ pipeline {
     //      new flowSemver().commitSemver(VERSION)
     //    }
     //  }
-    }
+    //}
 
     stage('Build new release') {
       environment {
