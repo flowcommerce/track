@@ -75,6 +75,7 @@ pipeline {
     stage('Build new release') {
       environment {
         NPM_TOKEN = credentials('jenkins-npm-automation-token')
+        NODE_ENV = 'development'
       }
       when { not { branch 'main' } }
       steps {
