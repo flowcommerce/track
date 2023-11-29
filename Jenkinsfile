@@ -87,7 +87,7 @@ pipeline {
             )
           ]) {
             script {
-              semver = VERSION.printable()
+              //semver = VERSION.printable()
               sh """
                 node --version
                 npm --version
