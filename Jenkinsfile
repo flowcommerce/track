@@ -79,24 +79,25 @@ pipeline {
               usernameVariable: 'GIT_USERNAME',
               passwordVariable: 'GIT_PASSWORD'
             )
-          ])
-          script {
-            semver = VERSION.printable()
-            sh """
-              git config --global credential.helper "store --file=/tmp/git-credentials"
-              echo "https://$GIT_USERNAME:$GIT_PASSWORD@github.com" > /tmp/git-credentials
-              git config --global --add safe.directory /home/jenkins/workspace
-              git clone https://github.com/flowcommerce/track.git track
-              cd track
-	            npm install && npm prune
-	            npm run build
-	            mv dist/js/main.css dist/css/main.css
-	            sed -i '.bak' 's/__APP_VERSION__/$semver/g' dist/index.html
-	            aws s3 sync dist/css s3://track.flow.io/test/css/$semver --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-	            aws s3 sync dist/js s3://track.flow.io/test/js/$semver --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-              sleep 1800
-	            aws s3 cp dist/index.html s3://track.flow.io/test --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-	          """         
+          ]) {
+            script {
+              semver = VERSION.printable()
+              sh """
+                git config --global credential.helper "store --file=/tmp/git-credentials"
+                echo "https://$GIT_USERNAME:$GIT_PASSWORD@github.com" > /tmp/git-credentials
+                git config --global --add safe.directory /home/jenkins/workspace
+                git clone https://github.com/flowcommerce/track.git track
+                cd track
+                npm install && npm prune
+                npm run build
+                mv dist/js/main.css dist/css/main.css
+                sed -i '.bak' 's/__APP_VERSION__/$semver/g' dist/index.html
+                aws s3 sync dist/css s3://track.flow.io/test/css/$semver --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+                aws s3 sync dist/js s3://track.flow.io/test/js/$semver --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+                sleep 1800
+                aws s3 cp dist/index.html s3://track.flow.io/test --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+              """         
+            }
           }
         }
       }
