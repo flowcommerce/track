@@ -73,6 +73,9 @@ pipeline {
     }
 
     stage('Build new release') {
+      environment {
+        NPM_TOKEN = credentials('jenkins-npm-automation-token')
+      }
       when { branch 'main' }
       steps {
         container('nodejs') {
@@ -86,9 +89,10 @@ pipeline {
             script {
               semver = VERSION.printable()
               sh """
+                sh(script: 'node --version')
+                sh(script: 'npm --version')
+                sh(script: 'echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc')
                 sleep 1800
-                git clone https://github.com/flowcommerce/track.git track
-                cd track
                 npm install && npm prune
                 npm run build
                 mv dist/js/main.css dist/css/main.css
