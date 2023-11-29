@@ -91,9 +91,10 @@ pipeline {
 	            npm install && npm prune
 	            npm run build
 	            mv dist/js/main.css dist/css/main.css
-	            sed -i '.bak' 's/__APP_VERSION__/'$(sem-info tag latest)'/g' dist/index.html
-	            aws s3 sync dist/css s3://track.flow.io/test/css/`sem-info tag latest` --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-	            aws s3 sync dist/js s3://track.flow.io/test/js/`sem-info tag latest` --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+	            sed -i '.bak' 's/__APP_VERSION__/$semver/g' dist/index.html
+	            aws s3 sync dist/css s3://track.flow.io/test/css/$semver --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+	            aws s3 sync dist/js s3://track.flow.io/test/js/$semver --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+              sleep 1800
 	            aws s3 cp dist/index.html s3://track.flow.io/test --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 	          """         
           }
