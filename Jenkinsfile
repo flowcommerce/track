@@ -89,9 +89,9 @@ pipeline {
             script {
               semver = VERSION.printable()
               sh """
-                sh(script: 'node --version')
-                sh(script: 'npm --version')
-                sh(script: 'echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc')
+                node --version
+                npm --version
+                echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
                 sleep 1800
                 npm install && npm prune
                 npm run build
