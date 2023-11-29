@@ -94,8 +94,8 @@ pipeline {
                 node --version
                 npm --version
                 echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-                #sleep 1800
-                npm ci
+                sleep 1800
+                #npm ci
                 npm install && npm prune
                 npm run build
                 mv dist/js/main.css dist/css/main.css
