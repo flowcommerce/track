@@ -37,6 +37,7 @@ pipeline {
       environment {
         NPM_TOKEN = credentials('jenkins-npm-automation-token')
       }
+      when { not { branch 'main' } }
       steps {
         container('nodejs') {
           script {
@@ -44,13 +45,14 @@ pipeline {
             sh(script: 'npm --version')
             sh(script: 'echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc')
             sh(script: 'sleep 1800')
-            sh(script: 'NODE_ENV=development npm ci')
+            //sh(script: 'NODE_ENV=development npm ci')
           }
         }
       }
     }
 
     stage('Lint') {
+      //when { not { branch 'main' } }
       steps {
         container('nodejs') {
           script {
