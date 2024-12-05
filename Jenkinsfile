@@ -44,7 +44,6 @@ pipeline {
             sh(script: 'node --version')
             sh(script: 'npm --version')
             sh(script: 'echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc')
-            sh(script: 'sleep 1800')
             //sh(script: 'NODE_ENV=development npm ci')
           }
         }
