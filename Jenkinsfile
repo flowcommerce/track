@@ -6,16 +6,6 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '10'))
     timeout(time: 30, unit: 'MINUTES')
   }
-
-  // agent {
-  //   kubernetes {
-  //     inheritFrom 'kaniko-slim'
-
-  //     containerTemplates([
-  //       containerTemplate(name: 'nodejs', image: "flowdocker/node12_builder:0.2.83", resourceRequestCpu: '1', resourceRequestMemory: '4Gi', command: 'cat', ttyEnabled: true, runAsUser: '1000'),
-  //     ])
-  //   }
-  // }
   
   agent {
     kubernetes {
@@ -47,7 +37,7 @@ pipeline {
       environment {
         NPM_TOKEN = credentials('jenkins-npm-automation-token')
       }
-      // when { not { branch 'main' } }
+      when { not { branch 'main' } }
       steps {
         container('nodejs') {
           script {
@@ -61,7 +51,7 @@ pipeline {
     }
 
     stage('Lint') {
-      // when { not { branch 'main' } }
+      when { not { branch 'main' } }
       steps {
         container('nodejs') {
           script {
