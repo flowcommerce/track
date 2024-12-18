@@ -7,16 +7,26 @@ pipeline {
     timeout(time: 30, unit: 'MINUTES')
   }
 
+  // agent {
+  //   kubernetes {
+  //     inheritFrom 'kaniko-slim'
+
+  //     containerTemplates([
+  //       containerTemplate(name: 'nodejs', image: "flowdocker/node12_builder:0.2.83", resourceRequestCpu: '1', resourceRequestMemory: '4Gi', command: 'cat', ttyEnabled: true, runAsUser: '1000'),
+  //     ])
+  //   }
+  // }
+  
   agent {
     kubernetes {
-      inheritFrom 'kaniko-slim'
+      inheritFrom 'default'
 
       containerTemplates([
-        containerTemplate(name: 'nodejs', image: "flowdocker/node12_builder:0.2.83", resourceRequestCpu: '1', resourceRequestMemory: '4Gi', command: 'cat', ttyEnabled: true, runAsUser: '1000'),
+        containerTemplate(name: 'nodejs', image: "flowdocker/node16_builder", resourceRequestCpu: '1', resourceRequestMemory: '4Gi', command: 'cat', ttyEnabled: true, runAsUser: '1000'),
       ])
     }
   }
-
+  
   environment {
     ORG      = 'flowcommerce'
     NPM_TOKEN = credentials('jenkins-npm-automation-token')
