@@ -6,17 +6,17 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '10'))
     timeout(time: 30, unit: 'MINUTES')
   }
-
+  
   agent {
     kubernetes {
       inheritFrom 'default'
 
       containerTemplates([
-        containerTemplate(name: 'nodejs', image: "flowdocker/node12_builder:0.2.27", resourceRequestCpu: '1', resourceRequestMemory: '4Gi', command: 'cat', ttyEnabled: true, runAsUser: '1000'),
+        containerTemplate(name: 'nodejs', image: "flowdocker/node16_builder", resourceRequestCpu: '1', resourceRequestMemory: '4Gi', command: 'cat', ttyEnabled: true, runAsUser: '1000'),
       ])
     }
   }
-
+  
   environment {
     ORG      = 'flowcommerce'
     NPM_TOKEN = credentials('jenkins-npm-automation-token')
@@ -44,8 +44,7 @@ pipeline {
             sh(script: 'node --version')
             sh(script: 'npm --version')
             sh(script: 'echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc')
-            sh(script: 'sleep 1800')
-            //sh(script: 'NODE_ENV=development npm ci')
+            sh(script: 'NODE_ENV=development npm ci')
           }
         }
       }
