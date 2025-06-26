@@ -13,7 +13,7 @@ npm run dev
 
 Python HTTP Server
 ```
-python -m SimpleHTTPServer 8000
+python -m http.server 8000
 ```
 
 You can view the dev version of the page at: [http://localhost:8000/index-dev.html](http://localhost:8000/index-dev.html)
