@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import querystring from 'querystring';
 import BemHelper from '../../utilities/bem-helper';
@@ -22,7 +24,7 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    const trackingId = this.getTrackingId();
+    const trackingId = this.getTrackingIdentifier();
 
     if (trackingId) {
       this.doSearch(trackingId);
@@ -31,7 +33,7 @@ export default class App extends Component {
     }
   }
 
-  getTrackingId() {
+  getTrackingIdentifier() {
     const qs = querystring.parse(window.location.search.replace('?', ''));
     const pathParts = window.location.pathname.split('/');
 
@@ -55,7 +57,7 @@ export default class App extends Component {
   }
 
   getLastEvent() {
-    const labels = this.state.labels;
+    const { labels } = this.state;
     if (!labels.length || !labels[0].events.length) {
       return undefined;
     }
@@ -67,38 +69,38 @@ export default class App extends Component {
     this.setState({ pageLoaded: true });
   }
 
-  doSearch(trackingId) {
-    api.trackings.getTrackingsById(trackingId, {
+  handleSearch = (identifier) => {
+    this.doSearch(identifier);
+  }
+
+  doSearch(identifier) {
+    api.trackings.getTrackingsByIdentifier(identifier, {
       params: {
         sort: '-timestamp',
       },
     }).then((response) => {
       switch (response.status) {
-      case 200: {
-        this.setState({
-          labels: groupEvents(response.result.labels),
-          estimatedDelivery: getLabelEstimatedDeliveryDate(response.result.labels),
-          dataLoaded: true,
-        });
-        this.setPageLoaded();
-        break;
-      }
-      case 404:
-        this.setState({
-          dataLoaded: true,
-          notFound: true,
-        });
-        this.setPageLoaded();
-        break;
-      default:
-        this.setPageLoaded();
-        break;
+        case 200: {
+          this.setState({
+            labels: groupEvents(response.result.labels),
+            estimatedDelivery: getLabelEstimatedDeliveryDate(response.result.labels),
+            dataLoaded: true,
+          });
+          this.setPageLoaded();
+          break;
+        }
+        case 404:
+          this.setState({
+            dataLoaded: true,
+            notFound: true,
+          });
+          this.setPageLoaded();
+          break;
+        default:
+          this.setPageLoaded();
+          break;
       }
     });
-  }
-
-  handleSearch = (trackingId) => {
-    this.doSearch(trackingId);
   }
 
   render() {
@@ -110,10 +112,12 @@ export default class App extends Component {
           event={this.getLastEvent()}
           estimatedDelivery={this.state.estimatedDelivery}
           noResults={this.state.dataLoaded && this.state.labels.length === 0}
-          notFound={this.state.notFound} />
+          notFound={this.state.notFound}
+        />
         <Events
           labels={this.state.labels}
-          noResults={this.state.labels.length === 0} />
+          noResults={this.state.labels.length === 0}
+        />
         <Footer noResults={this.state.labels.length === 0} />
       </main>
     );
