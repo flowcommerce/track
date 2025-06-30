@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import querystring from 'querystring';
@@ -104,21 +103,28 @@ export default class App extends Component {
   }
 
   render() {
+    const {
+      dataLoaded,
+      estimatedDelivery,
+      labels,
+      notFound,
+      pageLoaded,
+    } = this.state;
     return (
-      <main className={bem.block({ loaded: this.state.pageLoaded })}>
+      <main className={bem.block({ loaded: pageLoaded })}>
         <Navigation />
         <Summary
           onSearch={this.handleSearch}
           event={this.getLastEvent()}
-          estimatedDelivery={this.state.estimatedDelivery}
-          noResults={this.state.dataLoaded && this.state.labels.length === 0}
-          notFound={this.state.notFound}
+          estimatedDelivery={estimatedDelivery}
+          noResults={dataLoaded && labels.length === 0}
+          notFound={notFound}
         />
         <Events
-          labels={this.state.labels}
-          noResults={this.state.labels.length === 0}
+          labels={labels}
+          noResults={labels.length === 0}
         />
-        <Footer noResults={this.state.labels.length === 0} />
+        <Footer noResults={labels.length === 0} />
       </main>
     );
   }
