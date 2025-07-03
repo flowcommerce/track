@@ -75,7 +75,7 @@ pipeline {
       environment {
         NPM_TOKEN = credentials('jenkins-npm-automation-token')
       }
-      //when { branch 'main' }
+      when { branch 'main' }
       steps {
         container('nodejs') {
           withCredentials([
