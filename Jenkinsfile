@@ -93,7 +93,7 @@ pipeline {
                 echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
                 #sleep 1800
                 NODE_ENV=development npm ci
-                ls -la node_modules/.bin/ && grep npm-run
+                npm run build
               """         
             }
           }
