@@ -75,7 +75,7 @@ pipeline {
       environment {
         NPM_TOKEN = credentials('jenkins-npm-automation-token')
       }
-      when { branch 'main' }
+      //when { branch 'main' }
       steps {
         container('nodejs') {
           withCredentials([
@@ -92,15 +92,15 @@ pipeline {
                 npm --version
                 echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
                 #sleep 1800
-                chmod +x node_modules/.bin/npm-run-all
+                chmod +x node_modules/.bin/*
                 npm install && npm prune
                 npm run build
-                mv dist/js/main.css dist/css/main.css
-                sed -i '.bak' 's/__APP_VERSION__/$semver/g' dist/index.html
-                aws s3 sync dist/css s3://track.flow.io/test/css/$semver
-                aws s3 sync dist/js s3://track.flow.io/test/js/$semver
-                sleep 1800
-                aws s3 cp dist/index.html s3://track.flow.io/test
+                //mv dist/js/main.css dist/css/main.css
+                //sed -i '.bak' 's/__APP_VERSION__/$semver/g' dist/index.html
+                //aws s3 sync dist/css s3://track.flow.io/test/css/$semver
+                //aws s3 sync dist/js s3://track.flow.io/test/js/$semver
+                //sleep 1800
+                //aws s3 cp dist/index.html s3://track.flow.io/test
               """         
             }
           }
