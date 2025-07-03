@@ -93,7 +93,7 @@ pipeline {
                 echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
                 #sleep 1800
                 npm install && npm prune
-                ls -la node_modules/.bin/ | grep npm-run
+                ls -la node_modules/.bin/ 
                 chmod +x node_modules/.bin/*
                 //npm run build
                 //mv dist/js/main.css dist/css/main.css
