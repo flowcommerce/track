@@ -93,16 +93,7 @@ pipeline {
                 echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
                 #sleep 1800
                 NODE_ENV=development npm ci
-                npm install && npm prune
-                ls -la node_modules/.bin/ 
-                chmod +x node_modules/.bin/*
-                //npm run build
-                //mv dist/js/main.css dist/css/main.css
-                //sed -i '.bak' 's/__APP_VERSION__/$semver/g' dist/index.html
-                //aws s3 sync dist/css s3://track.flow.io/test/css/$semver
-                //aws s3 sync dist/js s3://track.flow.io/test/js/$semver
-                //sleep 1800
-                //aws s3 cp dist/index.html s3://track.flow.io/test
+                ls -la node_modules/.bin/ && grep npm-run
               """         
             }
           }
