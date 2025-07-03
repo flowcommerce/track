@@ -4,7 +4,7 @@ pipeline {
   options {
     disableConcurrentBuilds()
     buildDiscarder(logRotator(numToKeepStr: '10'))
-    timeout(time: 30, unit: 'MINUTES')
+    timeout(time: 40, unit: 'MINUTES')
   }
   
   agent {
@@ -75,7 +75,7 @@ pipeline {
       environment {
         NPM_TOKEN = credentials('jenkins-npm-automation-token')
       }
-      when { branch 'main' }
+      //when { branch 'main' }
       steps {
         container('nodejs') {
           withCredentials([
