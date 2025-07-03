@@ -12,7 +12,7 @@ pipeline {
       inheritFrom 'kaniko-slim'
 
       containerTemplates([
-        containerTemplate(name: 'nodejs', image: "flowdocker/node16_builder", resourceRequestCpu: '1', resourceRequestMemory: '4Gi', command: 'cat', ttyEnabled: true, runAsUser: '1000'),
+        containerTemplate(name: 'nodejs', image: "flowdocker/node18_builder", resourceRequestCpu: '1', resourceRequestMemory: '4Gi', command: 'cat', ttyEnabled: true, runAsUser: '1000'),
       ])
     }
   }
@@ -93,7 +93,7 @@ pipeline {
                 echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
                 #sleep 1800
                 npm install && npm prune
-                ls -l node_modules/.bin/
+                ls -la node_modules/.bin/ | grep npm-run
                 chmod +x node_modules/.bin/*
                 //npm run build
                 //mv dist/js/main.css dist/css/main.css
