@@ -91,15 +91,12 @@ pipeline {
                 node --version
                 npm --version
                 echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-                #sleep 1800
                 NODE_ENV=development npm ci
                 npm run build
                 mv dist/js/main.css dist/css/main.css
                 sed -i 's/APP_VERSION/$semver/g' dist/index.html
                 aws s3 sync dist/css s3://track.flow.io/test/css/$semver
                 aws s3 sync dist/js s3://track.flow.io/test/js/$semver
-                #sleep 1800
-                sleep 60
                 aws s3 cp dist/index.html s3://track.flow.io/test
               """         
             }
