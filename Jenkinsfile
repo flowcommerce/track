@@ -19,7 +19,7 @@ pipeline {
   
   environment {
     ORG      = 'flowcommerce'
-    NPM_TOKEN = credentials('jenkins-npm-automation-token')
+    NPM_TOKEN = credentials('jenkins-npm-bypass-2fa-token')
   }
 
   stages {
@@ -35,7 +35,7 @@ pipeline {
 
     stage('Install & Build') {
       environment {
-        NPM_TOKEN = credentials('jenkins-npm-automation-token')
+        NPM_TOKEN = credentials('jenkins-npm-bypass-2fa-token')
       }
       when { not { branch 'main' } }
       steps {
@@ -73,7 +73,7 @@ pipeline {
 
     stage('Build new release') {
       environment {
-        NPM_TOKEN = credentials('jenkins-npm-automation-token')
+        NPM_TOKEN = credentials('jenkins-npm-bypass-2fa-token')
       }
       when { branch 'main' }
       steps {
