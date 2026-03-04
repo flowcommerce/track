@@ -9,7 +9,7 @@ pipeline {
   
   agent {
     kubernetes {
-      inheritFrom 'kaniko-slim'
+      inheritFrom 'generic'
 
       containerTemplates([
         containerTemplate(name: 'nodejs', image: "479720515435.dkr.ecr.us-east-1.amazonaws.com/flowcommerce/node16_builder:latest", resourceRequestCpu: '1', resourceRequestMemory: '4Gi', command: 'cat', ttyEnabled: true, runAsUser: '1000'),
